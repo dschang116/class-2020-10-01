@@ -76,8 +76,6 @@ big_classes <- function(x, my_year){
     filter(year == my_year) %>%
     slice(1:5)
 }
-
-big_classes(classes, "2015")
 ```
 
 
@@ -88,11 +86,19 @@ big_classes(classes, "2015")
 
 * Create a tibble with a row for each year which includes a list-column named `q_enrollment` in which is stored the results of running `quantile()` on enrollment.
 
+```{r}
+scene_3 <- classes %>%
+  group_by(year) %>%
+  summarize(q_enrollment = list(quantile(u_grad)))
+```
 
 
 * You now have a tibble with two columns: `year` and `q_enrollment`. Add another column called `mean_25_75` which is the average of the 25th and 75th percentiles. (You should look at `?quantile` to determine which elements in the list these are.) 
 
-
+```{r}
+scene_3 %>%
+  mutate(mean_25_75 = map_dbl(q_enrollment, ~mean(.[2], .[4])))
+```
 
 
 ### Scene 4
