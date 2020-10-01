@@ -49,6 +49,15 @@ Let's continue working with the same enrollment data as Tuesday.  Recall the [of
 
 **Prompt:** Create a tibble named `classes` which includes the data from all five years in a "tidy" format. In addition to the variables produced by `read_enrollemnt()`, your tibble should include a variable named `year`.
 
+```{r}
+d_2019 <- read_enrollemnt("raw_data/class_enrollment_summary_by_term_12.20.19.xlsx")
+d_2018 <- read_enrollemnt("raw_data/class_enrollment_summary_by_term_10.24.18.xlsx", 2)
+d_2017 <- read_enrollemnt("raw_data/class_enrollment_summary_by_term_10.20.17.xlsx")
+d_2016 <- read_enrollemnt("raw_data/class_enrollment_summary_by_term_fall_2016.xlsx", 0)
+d_2015 <- read_enrollemnt("raw_data/class_enrollment_summary_by_term_fall_2015.xlsx")
+
+classes <- bind_rows(d_2019, d_2018, d_2017, d_2016, d_2015, .id = "year")
+```
 
 
 ### Scene 2
